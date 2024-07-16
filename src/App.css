@@ -1,0 +1,15 @@
+/* * {
+  background: #000;
+  font-family: monospace;
+} */
+
+#root {
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  overflow-x: hidden;
+}
+
+.size-5[type="checkbox"]:checked {
+  accent-color: #343bff;
+}
