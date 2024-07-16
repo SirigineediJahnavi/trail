@@ -1,39 +1,41 @@
-import logo from "../../assets/easypayZ-logo.webp";
-import { RiDashboard2Line } from "react-icons/ri";
-import { LuReceipt } from "react-icons/lu";
-import { FaUsersLine } from "react-icons/fa6";
-import { GrAnalytics } from "react-icons/gr";
-
+// Sidebar.jsx
+import React from "react";
 import { Link } from "react-router-dom";
-import { FaShareNodes } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
+import dashboardIcon from "../../assets/dashboard.webp";
+import invoicesIcon from "../../assets/invoices.webp";
+import clients from "../../assets/clients.webp";
+import accounts from "../../assets/world.webp";
+import analytics from "../../assets/analytics.webp";
+import referrals from "../../assets/referrals.webp";
+import johndoe from "../../assets/johndoe.webp";
 
 function Sidebar({ tabs, selected, setSelected, value }) {
-  const icons = [
-    <RiDashboard2Line fontSize={24} />,
-    <LuReceipt fontSize={24} />,
-    <FaUsersLine fontSize={24} />,
-    <GrAnalytics fontSize={23} />,
-    <FaShareNodes fontSize={24} />,
-  ];
+  const icons = {
+    Dashboard: dashboardIcon,
+    Invoices: invoicesIcon,
+    Clients: clients, // Example, adjust as needed
+    ExternalAccounts: accounts, // Example, adjust as needed
+    Analytics: analytics, // Example, adjust as needed
+    Referrals: referrals, // Example, adjust as needed
+    // Add more icons as needed
+  };
 
   return (
     <div className="relative bg-[#FFFFFF03] max-w-[250px] lg:w-[303px] text-[#FFFFFF66] shadow-sm text-md font-semibold hidden sm:block min-h-[100vh]">
       <div className="options text-start flex-col flex items-start mx-6 mt-8">
-        {/* <h2>General</h2> */}
         {tabs?.map((tab) => (
           <Tab
+            key={tab}
             text={tab}
-            tabs={tabs}
-            icon={icons}
             selected={selected === tab}
             setSelected={setSelected}
-            key={tab}
+            icon={icons[tab]}
           />
         ))}
-        <h1 className="flex w-full items-center text-lg gap-3 mt-5 px-4 p-3 bg-[#2f324156] mx4 rounded-xl text-[#FFFFFF66] font-semibold">
-          <FaUserCircle fontSize={30} />
-          {value.uname}
+        <h1 className="flex w-full items-center text-lg gap-3 mt-5 px-4 p-3 bg-[#2f324156] mx-4 rounded-xl text-[#FFFFFF66] font-semibold">
+          <img src={johndoe} className="rounded-full"/>
+          John doe
         </h1>
       </div>
       <h2 className="absolute bottom-3 pt-3 text-sm font-normal text-[#FFFFFF66] border-t border-[#FFFFFF0D] w-full">
@@ -43,18 +45,18 @@ function Sidebar({ tabs, selected, setSelected, value }) {
   );
 }
 
-const Tab = ({ text, selected, setSelected, icon, tabs }) => {
+const Tab = ({ text, selected, setSelected, icon }) => {
   return (
     <Link
-      to={text == "Dashboard" ? `/dashboard` : `${text.toLowerCase()}`}
+      to={text === "Dashboard" ? "/dashboard" : `/${text.toLowerCase()}`}
       onClick={() => setSelected(text)}
     >
       <button
         className={`${
-          selected ? `bg-[#0C0D18] transition-all ` : ""
+          selected ? "bg-[#0C0D18] transition-all " : ""
         } flex items-center gap-3 min-w-[200px] py-4 rounded-lg px-4 mt-3 hover:bg-[#2f324156] active:bg-[#2f324156]`}
       >
-        {icon[tabs.indexOf(text)]}
+        <img src={icon} alt={text} className="w-6 h-6" /> {/* Example using img tag */}
         {text}
       </button>
     </Link>

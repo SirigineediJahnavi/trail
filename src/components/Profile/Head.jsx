@@ -1,4 +1,4 @@
-import logo from "../../assets/easypayZ-logo.webp";
+import crosspelogo from "../../assets/crosspelogo.webp";
 import UserAction from "./Popper.jsx";
 import { FaRegBell } from "react-icons/fa";
 import * as React from "react";
@@ -22,7 +22,10 @@ function Head() {
 
   return (
     <div className="w-full flex items-center justify-between px-2 md:px-6 py-3 shadow bg-[#0D0E16]">
-      <img src={logo} alt="logo" className="w-[150px] max-sm:w-[125px]" />
+      <img src={crosspelogo} alt="logo" className="w-[50px] max-sm:w-[125px]" />
+      <h2 className="color-white">
+        Crosspe
+      </h2>
       <span className="flex items-center">
         <Button aria-describedby={id} onClick={handleClick}>
           <FaRegBell

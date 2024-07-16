@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
-// import kycImg from "../../assets/image11.png";
+import React, { useState, useEffect, useContext } from "react";
 import kycImg from "../../assets/Frame 16.webp";
 import kycImg2 from "../../assets/Group 4.webp";
 import kycImg3 from "../../assets/image11.webp";
 import { AuthContext } from "../../Context.jsx";
 import Modal from "./Modal.jsx";
+import Newcurrency from "./Newcurrency.jsx";
+import RequestNewCurrency from "./RequestNewCurrency.jsx";
 import api from "../../service/api.js";
-import { useContext } from "react";
 
 function Kyc() {
   const [modal, setModal] = useState(false);
+  const [showNewCurrency, setShowNewCurrency] = useState(false);
+  const [requestNewCurrency, setRequestNewCurrency] = useState(false);
   const [user, setUser] = useState({});
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -21,6 +23,7 @@ function Kyc() {
   ];
 
   useEffect(() => {
+    // Fetch user data on component mount or when isLoggedIn changes
     api
       .get("/dashboard", {
         headers: {
@@ -28,14 +31,29 @@ function Kyc() {
         },
       })
       .then((res) => {
-        // console.log(res.data);
         setUser(res.data);
       })
       .catch((err) => {
-        err.response.status == 401 ? navigate("/login") : "";
+        if (err.response.status === 401) navigate("/login");
         console.log(err.response);
       });
   }, [isLoggedIn]);
+
+  const handleAddClick = () => {
+    setShowNewCurrency(true);
+    setRequestNewCurrency(false);
+    setModal(false);
+  };
+
+  const handleRequestNewCurrency = () => {
+    setRequestNewCurrency(true);
+    setShowNewCurrency(false);
+    setModal(false);
+  };
+
+  const handleCloseModal = () => {
+    setModal(false);
+  };
 
   return (
     <div className="relative h-screen max-sm:text-center mx-4 my-6 sm:mx-10 sm:my-5 max-md:flex-col fex justify-between sm:p8 rounded-xl">
@@ -79,11 +97,24 @@ function Kyc() {
         </div>
       </div>
       <Modal
-        value={countries}
         modal={modal}
-        setModal={setModal}
-        flag={countries}
+        handleClose={handleCloseModal}
+        handleAddClick={handleAddClick}
+        countries={countries}
       />
+      {/* Render Newcurrency or RequestNewCurrency based on state */}
+      {showNewCurrency && (
+        <Newcurrency
+          showNewCurrency={showNewCurrency}
+          handleRequestNewCurrency={handleRequestNewCurrency}
+        />
+      )}
+      {requestNewCurrency && (
+        <RequestNewCurrency
+          requestNewCurrency={requestNewCurrency}
+          handleClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 }

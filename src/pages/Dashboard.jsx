@@ -5,7 +5,7 @@ import api from "../service/api";
 import { AuthContext } from "../Context.jsx";
 import Head from "../components/Profile/Head.jsx";
 
-const tabs = ["Dashboard", "Invoices", "Clients", "Analytics", "Referrals"];
+const tabs = ["Dashboard", "Invoices", "Clients","ExternalAccounts", "Analytics", "Referrals"];
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -32,9 +32,9 @@ function Dashboard() {
       });
   }, [isLoggedIn]);
 
- if (user.email != usermail) {
-   return  navigate("/waitlist");
-  }
+ //if (user.email != usermail) {
+   //return  navigate("/waitlist");
+ // }
 
   return (
     <>

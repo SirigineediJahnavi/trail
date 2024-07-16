@@ -12,7 +12,9 @@ const Profile = lazy(() => import("./components/Main/Profile.jsx"));
 const Invoices = lazy(() => import("./components/Main/Invoices.jsx"));
 const Analytics = lazy(() => import("./components/Main/Analytics.jsx"));
 const Referral = lazy(() => import("./components/Main/Referrals.jsx"));
+const NewCurrency = lazy(() => import("./components/Profile/Newcurrency.jsx"));
 
+<Route path="/add-currency" element={<NewCurrency />} />
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
@@ -27,6 +29,7 @@ const routes = [
       { path: "clients", element: <Clients /> },
       { path: "analytics", element: <Analytics /> },
       { path: "referrals", element: <Referral /> },
+      {path:"add-currency",element:<NewCurrency/>},
     ],
   },
   { path: "/waitlist", element: <Waitlist /> },
